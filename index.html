@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Click Image with Sound</title>
+  <style>
+    body{font-family:sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#0f1724;color:#fff}
+    .imgbtn{cursor:pointer;max-width:90vw;width:300px;border:4px solid #fff;border-radius:12px;overflow:hidden}
+    .counter{margin-top:16px;font-size:20px;font-weight:bold}
+  </style>
+</head>
+<body>
+  <img src="image.webp" alt="click image" class="imgbtn" id="imgBtn">
+  <div class="counter">คลิกทั้งหมด: <span id="count">0</span></div>
+
+  <script>
+    const btn = document.getElementById('imgBtn');
+    const countEl = document.getElementById('count');
+    let count = parseInt(localStorage.getItem('click-count')||'0');
+    countEl.textContent = count;
+    const audio = new Audio('sound.mp3');
+    btn.addEventListener('click', ()=>{
+      count++; localStorage.setItem('click-count', count);
+      countEl.textContent = count;
+      audio.currentTime = 0;
+      audio.play();
+    });
+  </script>
+</body>
+</html>
